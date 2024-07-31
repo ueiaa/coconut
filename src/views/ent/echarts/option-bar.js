@@ -242,6 +242,12 @@ export let barStackOption = {
         focus: "series",
       },
       data: [620, 732, 701, 734, 1090, 1130, 1120],
+      markLine: {
+        lineStyle: {
+          type: "dashed",
+        },
+        data: [[{ type: "average" }, { type: "max" }]],
+      },
     },
     {
       name: "Google",
@@ -272,3 +278,87 @@ export let barStackOption = {
     },
   ],
 };
+
+let seriesData = [
+  {
+    data: [120, 200, 150, 80, 70, 110, 130],
+    type: 'bar',
+    stack: 'a',
+    name: 'a',
+    emphasis: {
+      focus: "series",
+    },
+  },
+  {
+    data: [10, 46, 64, '-', 0, '-', 0],
+    type: 'bar',
+    stack: 'a',
+    name: 'b',
+    emphasis: {
+      focus: "series",
+    },
+  },
+  {
+    data: [30, '-', 0, 20, 10, '-', 0],
+    type: 'bar',
+    stack: 'a',
+    name: 'c',
+    emphasis: {
+      focus: "series",
+    },
+  },
+  {
+    data: [30, '-', 0, 20, 10, '-', 0],
+    type: 'bar',
+    stack: 'b',
+    name: 'd',
+    emphasis: {
+      focus: "series",
+    },
+  },
+  {
+    data: [10, 20, 150, 0, '-', 50, 10],
+    type: 'bar',
+    stack: 'b',
+    name: 'e',
+    emphasis: {
+      focus: "series",
+    },
+  }
+]
+
+let stackInfo = {}; // 初始化一个对象
+
+for(let i = 0; i < seriesData[0].data.length; i++) {  //0-6
+  for(let j = 0; j < seriesData.length; j++) { //0-4
+    const stackName = seriesData[j].stack; //stackName='a'
+    if(!stackName){
+      continue;  //如果series中的某组数据没有stack，则直接跳出此次循环，进入下一次
+    }
+    if(!stackInfo[stackName]) {   //如果当前stackName，例如'a'
+      stackInfo[stackName] = {
+        stackStart: [],
+        stackEnd: []
+      }
+    }
+  }
+}
+
+export let barStackBorderOption = {
+  title: {
+    left: 'center',
+    text: '带圆角的堆积柱状图'
+  },
+  legend: {
+    x: 'center',
+    y: 'bottom'
+  },
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: seriesData
+}

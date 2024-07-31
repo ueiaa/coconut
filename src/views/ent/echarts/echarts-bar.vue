@@ -21,7 +21,7 @@
         <div class="bar-stack" ref="barStack"></div>
       </div>
       <div class="container-right">
-        <div class="line-gradient" ref="lineGradient"></div>
+        <div class="bar-stack-border" ref="barStackBorder"></div>
       </div>
     </div>
     <div class="container">
@@ -43,7 +43,7 @@ import {
   barBgOption,
   barNegativeOption,
   barStackOption,
-  lineGradientOption,
+  barStackBorderOption,
   largeAreaPiecesOption,
   stepLineOption
 } from "./option-bar.js";
@@ -65,7 +65,7 @@ export default {
       let myBarBg = echarts.init(this.$refs.barBg);
       let myBarNegative = echarts.init(this.$refs.barNegative);
       let myBarStack = echarts.init(this.$refs.barStack);
-      let myLineGradient = echarts.init(this.$refs.lineGradient);
+      let myBarStackBorder = echarts.init(this.$refs.barStackBorder);
       let myLargeAreaPieces = echarts.init(this.$refs.largeAreaPieces);
       let myStepLine = echarts.init(this.$refs.stepLine);
       myBaseBar.setOption(baseBarOption);
@@ -73,7 +73,7 @@ export default {
       myBarBg.setOption(barBgOption);
       myBarNegative.setOption(barNegativeOption);
       myBarStack.setOption(barStackOption);
-      myLineGradient.setOption(lineGradientOption);
+      myBarStackBorder.setOption(barStackBorderOption);
       myLargeAreaPieces.setOption(largeAreaPiecesOption);
       myStepLine.setOption(stepLineOption);
     },
@@ -121,7 +121,7 @@ export default {
       align-items: center;
       .bar-align,
       .bar-negative,
-      .line-gradient,
+      .bar-stack-border,
       .step-line {
         width: 100%;
         height: 90%;
