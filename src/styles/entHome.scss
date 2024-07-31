@@ -1,0 +1,41 @@
+.home-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  .header-wrapper {
+    padding: 0 12px;
+  }
+  .header-container {
+    display: flex;
+    justify-content: space-between; //两端对齐（两边与边框没有距离）
+    align-items: center;
+    margin: 0 auto;
+
+    .header-logo {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-grow: 1;
+
+      .header-menu {
+        padding-right: 20px;
+        border-bottom: 0px;
+      }
+
+      .header-user {
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+  }
+}
