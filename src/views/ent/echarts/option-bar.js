@@ -1,3 +1,5 @@
+import { da } from "element-plus/es/locale";
+
 export let baseBarOption = {
   title: {
     text: "基础柱状图",
@@ -282,83 +284,332 @@ export let barStackOption = {
 let seriesData = [
   {
     data: [120, 200, 150, 80, 70, 110, 130],
-    type: 'bar',
-    stack: 'a',
-    name: 'a',
+    type: "bar",
+    stack: "a",
+    name: "a",
     emphasis: {
       focus: "series",
     },
   },
   {
-    data: [10, 46, 64, '-', 0, '-', 0],
-    type: 'bar',
-    stack: 'a',
-    name: 'b',
+    data: [10, 46, 64, "-", 0, "-", 0],
+    type: "bar",
+    stack: "a",
+    name: "b",
     emphasis: {
       focus: "series",
     },
   },
   {
-    data: [30, '-', 0, 20, 10, '-', 0],
-    type: 'bar',
-    stack: 'a',
-    name: 'c',
+    data: [30, "-", 0, 20, 10, "-", 0],
+    type: "bar",
+    stack: "a",
+    name: "c",
     emphasis: {
       focus: "series",
     },
   },
   {
-    data: [30, '-', 0, 20, 10, '-', 0],
-    type: 'bar',
-    stack: 'b',
-    name: 'd',
+    data: [30, "-", 0, 20, 10, "-", 0],
+    type: "bar",
+    stack: "b",
+    name: "d",
     emphasis: {
       focus: "series",
     },
   },
   {
-    data: [10, 20, 150, 0, '-', 50, 10],
-    type: 'bar',
-    stack: 'b',
-    name: 'e',
+    data: [10, 20, 150, 0, "-", 50, 10],
+    type: "bar",
+    stack: "b",
+    name: "e",
     emphasis: {
       focus: "series",
     },
-  }
-]
+  },
+];
 
 let stackInfo = {}; // 初始化一个对象
+// obj = {
+//   'a': {
 
-for(let i = 0; i < seriesData[0].data.length; i++) {  //0-6
-  for(let j = 0; j < seriesData.length; j++) { //0-4
+//   },
+//   'b': {
+
+//   }
+// }
+
+for (let i = 0; i < seriesData[0].data.length; i++) {
+  //0-6
+  for (let j = 0; j < seriesData.length; j++) {
+    //0-4
     const stackName = seriesData[j].stack; //stackName='a'
-    if(!stackName){
-      continue;  //如果series中的某组数据没有stack，则直接跳出此次循环，进入下一次
+    if (!stackName) {
+      continue; //如果series中的某组数据没有stack，则直接跳出此次循环，进入下一次
     }
-    if(!stackInfo[stackName]) {   //如果当前stackName，例如'a'
+    if (!stackInfo[stackName]) {
+      //如果当前stackName不存在，例如'a'
       stackInfo[stackName] = {
         stackStart: [],
-        stackEnd: []
+        stackEnd: [],
+      };
+    }
+    const info = stackInfo[stackName];
+    const data = seriesData[j].data[i]; // 例如第一组数据中的data的第一个值，即120
+    if (data && data !== "-") {
+      if (info.stackStart[i] == null) {
+        info.stackStart[i] = j; // stackStart: [0]
       }
+      info.stackEnd[i] = j; // stackEnd: [0]，每次j循环都会改变，在当前i循环中，如果最后一次j循环的data满足条件，那么stackEnd是最后一个j的值，也就是2
     }
   }
 }
 
+// console.log(stackInfo)
+// stackInfo = {
+//   'a':{
+//     stackStart: [0,0,0,0,0,0,0],
+//     stackEnd: [2,1,1,2,2,0,0]
+//   },
+//   'b':{
+//     stackStart:[3,4,4,3,3,4,4],
+//     stackEnd:[4,4,4,3,3,4,4]
+//   }
+// }
+
+// 再次遍历seriesData，i为0-4
+for (let i = 0; i < seriesData.length; i++) {
+  const data = seriesData[i].data; // 直接第i组数据获取对应的data
+  const info = stackInfo[seriesData[i].stack]; // 第i组数据获取对应的stack，例如第0组数据是'a'
+  // 遍历第i组数据的data，j为0-6
+  for (let j = 0; j < seriesData[i].data.length; j++) {
+    const isEnd = info.stackEnd[j] === i;
+    const topBorder = isEnd ? 20 : 0;
+    const bottomBorder = 0;
+    // 修改data中的第j项，设置圆角样式
+    data[j] = {
+      value: data[j],
+      itemStyle: {
+        borderRadius: [topBorder, topBorder, bottomBorder, bottomBorder],
+      },
+    };
+  }
+}
 export let barStackBorderOption = {
   title: {
-    left: 'center',
-    text: '带圆角的堆积柱状图'
+    left: "center",
+    text: "带圆角的堆积柱状图",
   },
   legend: {
-    x: 'center',
-    y: 'bottom'
+    x: "center",
+    y: "bottom",
   },
   xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    type: "category",
+    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
   yAxis: {
-    type: 'value'
+    type: "value",
   },
-  series: seriesData
-}
+  series: seriesData,
+};
+
+export let mixLineBarOption = {
+  title: {
+    left: "center",
+    text: "折柱混合图",
+  },
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      type: "cross",
+      crossStyle: {
+        color: "#999",
+      },
+    },
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ["line", "bar"] },
+      restore: { show: true },
+      saveAsImage: { show: true },
+    },
+  },
+  legend: {
+    y: "bottom",
+  },
+  xAxis: {
+    type: "category",
+    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    axisPointer: {
+      type: "shadow",
+    },
+  },
+  yAxis: [
+    {
+      type: "value",
+      name: "Precipitation",
+      min: 0,
+      max: 250,
+      interval: 50, // 间隔
+      axisLabel: {
+        formatter: "{value} ml",
+      },
+    },
+    {
+      type: "value",
+      name: "Temperature",
+      min: 0,
+      max: 25,
+      interval: 5,
+      axisLabel: {
+        formatter: "{value} °C",
+      },
+    },
+  ],
+  series: [
+    {
+      name: "Evaporation",
+      type: "bar",
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + " ml";
+        },
+      },
+      data: [
+        2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
+      ],
+    },
+    {
+      name: "Precipitation",
+      type: "bar",
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + " ml";
+        },
+      },
+      data: [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
+      ],
+    },
+    {
+      name: "Temperature",
+      type: "line",
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + " °C";
+        },
+      },
+      data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2],
+    },
+  ],
+};
+
+
+const colors = ['#5470C6', '#91CC75', '#EE6666'];
+export let multipleYAxisOption = {
+  title: {
+    left: "center",
+    text: "多y轴",
+  },
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      type: "cross",
+    },
+  },
+  grid: {
+    right: '20%'
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      restore: { show: true },
+      saveAsImage: { show: true },
+    },
+  },
+  legend: {
+    y: "bottom",
+  },
+  xAxis: {
+    type: "category",
+    axisTick: {
+      alignWithLabel: true,
+    },
+    // prettier-ignore
+    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  },
+  yAxis: [
+    {
+      type: 'value',
+      name: 'Evaporation',
+      position: 'right',
+      alignTicks: true,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[0]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} ml'
+      }
+    },
+    {
+      type: 'value',
+      name: 'Precipitation',
+      position: 'right',
+      alignTicks: true,
+      offset: 80,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[1]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} ml'
+      }
+    },
+    {
+      type: 'value',
+      name: '温度',
+      position: 'left',
+      alignTicks: true,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[2]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} °C'
+      }
+    }
+  ],
+  series: [
+    {
+      name: 'Evaporation',
+      type: 'bar',
+      data: [
+        2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+      ]
+    },
+    {
+      name: 'Precipitation',
+      type: 'bar',
+      yAxisIndex: 1,
+      data: [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+      ]
+    },
+    {
+      name: 'Temperature',
+      type: 'line',
+      yAxisIndex: 2,
+      data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+    }
+  ]
+};

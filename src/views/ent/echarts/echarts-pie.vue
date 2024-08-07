@@ -2,18 +2,18 @@
   <div class="echarts">
     <div class="container">
       <div class="container-left">
-        <div class="base-bar" ref="baseBar"></div>
+        <div class="base-pie" ref="basePie"></div>
       </div>
       <div class="container-right">
-        <div class="bar-align" ref="barAlign"></div>
+        <div class="pie-BR" ref="pieBR"></div>
       </div>
     </div>
     <div class="container">
       <div class="container-left">
-        <div class="bar-bg" ref="barBg"></div>
+        <div class="half-donut" ref="halfDonut"></div>
       </div>
       <div class="container-right">
-        <div class="bar-negative" ref="barNegative"></div>
+        <div class="multiple-pie" ref="multiplePie"></div>
       </div>
     </div>
     <div class="container">
@@ -24,29 +24,21 @@
         <div class="bar-stack-border" ref="barStackBorder"></div>
       </div>
     </div>
-    <div class="container">
-      <div class="container-left">
-        <div class="mix-line-bar" ref="mixLineBar"></div>
-      </div>
-      <div class="container-right">
-        <div class="multiple-y-axis" ref="multipleYAxis"></div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import * as echarts from "echarts";
 import {
-  baseBarOption,
-  barAlignOption,
-  barBgOption,
-  barNegativeOption,
+  basePieOption,
+  pieBROption,
+  halfDonutOption,
+  multiplePieOption,
   barStackOption,
   barStackBorderOption,
   mixLineBarOption,
   multipleYAxisOption
-} from "./option-bar.js";
+} from "./option-pie.js";
 export default {
   components: {},
   data() {
@@ -60,22 +52,14 @@ export default {
   },
   methods: {
     initCharts() {
-      let myBaseBar = echarts.init(this.$refs.baseBar);
-      let myBarAlign = echarts.init(this.$refs.barAlign);
-      let myBarBg = echarts.init(this.$refs.barBg);
-      let myBarNegative = echarts.init(this.$refs.barNegative);
-      let myBarStack = echarts.init(this.$refs.barStack);
-      let myBarStackBorder = echarts.init(this.$refs.barStackBorder);
-      let myMixLineBar = echarts.init(this.$refs.mixLineBar);
-      let myMultipleYAxis = echarts.init(this.$refs.multipleYAxis);
-      myBaseBar.setOption(baseBarOption);
-      myBarAlign.setOption(barAlignOption);
-      myBarBg.setOption(barBgOption);
-      myBarNegative.setOption(barNegativeOption);
-      myBarStack.setOption(barStackOption);
-      myBarStackBorder.setOption(barStackBorderOption);
-      myMixLineBar.setOption(mixLineBarOption);
-      myMultipleYAxis.setOption(multipleYAxisOption);
+      let myBasePie = echarts.init(this.$refs.basePie);
+      let myPieBR = echarts.init(this.$refs.pieBR);
+      let myHalfDonut = echarts.init(this.$refs.halfDonut);
+      let myMultiplePie = echarts.init(this.$refs.multiplePie);
+      myBasePie.setOption(basePieOption);
+      myPieBR.setOption(pieBROption);
+      myHalfDonut.setOption(halfDonutOption);
+      myMultiplePie.setOption(multiplePieOption);
     },
   },
 };
@@ -96,14 +80,14 @@ export default {
     padding: 20px;
     gap: 30px;
     .container-left {
-      background-color: #f0edf4;
+      background-color: #edeef4;
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      .base-bar,
-      .bar-bg,
+      .base-pie,
+      .half-donut,
       .bar-stack,
       .mix-line-bar {
         width: 100%;
@@ -114,13 +98,13 @@ export default {
       }
     }
     .container-right {
-      background-color: #f0edf4;
+      background-color: #edeef4;
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      .bar-align,
-      .bar-negative,
+      .pie-BR,
+      .multiple-pie,
       .bar-stack-border,
       .multiple-y-axis {
         width: 100%;

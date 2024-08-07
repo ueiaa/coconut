@@ -1,0 +1,59 @@
+// 颜色
+$ebz-color-primary: #3F61FA;
+$ebz-color-primary-shallow: #E7EEFF;
+$ebz-color-default: #EEF1F8;
+$ebz-color-success: #5cb85c;
+$ebz-color-success-shallow: #dff0d8;
+$ebz-color-warning: #5cb85c;
+$ebz-color-warning-shallow: #fcf8e3;
+$ebz-color-danger: #5cb85c;
+$ebz-color-danger-shallow: #f2dede;
+$ebz-color-font-primary: #606266;
+
+//$ebz-color-font-primary-shallow: rgba($ebz-color-font-primary, 0.8);
+
+/* 覆盖elementPlus全局变量 */
+:root {
+    --el-color-primary: #3F61FA;
+
+    --ebz-color-primary: #3F61FA;
+    --ebz-color-primary-dark: #253CA2;
+    --ebz-color-primary-shallow: #E7EEFF;
+    --ebz-color-default: #EEF1F8;
+    --ebz-color-success: #5cb85c;
+    --ebz-color-success-shallow: #dff0d8;
+    --ebz-color-warning: #5cb85c;
+    --ebz-color-warning-shallow: #fcf8e3;
+    --ebz-color-danger: #5cb85c;
+    --ebz-color-danger-shallow: #f2dede;
+    --ebz-color-font-primary: #606266;
+}
+
+// 字体
+$ebz-font-size-default: 12px;
+
+// sidebar
+$menuText:#bfcbd9;
+$menuActiveText:#409EFF;
+$subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
+
+$menuBg:#304156;
+$menuHover:#263445;
+
+$subMenuBg:#1f2d3d;
+$subMenuHover:#001528;
+
+$sideBarWidth: 210px;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+}

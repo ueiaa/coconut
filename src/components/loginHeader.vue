@@ -9,23 +9,37 @@
 
         <div class="header-content">
           <el-menu
-            :default-active="activeIndex"
+            :default-active="$route.path"
+            router
             class="header-menu"
             mode="horizontal"
             :ellipsis="false"
             @select="handleSelect"
           >
             <el-menu-item index="/home">Home</el-menu-item>
-            <el-menu-item index="/pages">Pages</el-menu-item>
+            <el-sub-menu index="/pages">
+              <template #title>pages</template>
+              <el-menu-item index="/pages/animation">animation</el-menu-item>
+              <el-menu-item index="/pages/webSocket">webSocket</el-menu-item>
+              <el-menu-item index="/pages/pageView1">pageView1</el-menu-item>
+              <el-menu-item index="/pages/pageView2">pageView2</el-menu-item>
+            </el-sub-menu>
             <!-- <el-menu-item index="/echarts">echarts</el-menu-item> -->
             <el-sub-menu index="echarts">
               <template #title>echarts</template>
               <el-menu-item index="/echarts/line">line</el-menu-item>
               <el-menu-item index="/echarts/bar">bar</el-menu-item>
-              <el-menu-item index="/echarts">Zjtx</el-menu-item>
+              <el-menu-item index="/echarts/pie">pie</el-menu-item>
+              <el-menu-item index="/echarts/other">other</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/zjtx">Zjtx</el-menu-item>
-            <el-menu-item index="/about">About</el-menu-item>
+            <el-sub-menu index="demo">
+              <template #title>demo</template>
+              <el-menu-item index="/demo/form">form</el-menu-item>
+              <el-menu-item index="/demo/qrCode">qrCode</el-menu-item>
+              <el-menu-item index="/demo/lodash">lodash</el-menu-item>
+              <!-- <el-menu-item index="/demo/editor">editor</el-menu-item> -->
+            </el-sub-menu>
             <el-menu-item index="/contact">Contact</el-menu-item>
           </el-menu>
           <div v-if="isLogin" class="header-user">

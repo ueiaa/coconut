@@ -35,24 +35,6 @@ const constRoutes = [
       title: "登录",
     },
   },
-  // {
-  //   path: "/echarts-line",
-  //   component: () => import("@/views/ent/echarts/echarts-line"),
-  //   meta: {
-  //     id: "echarts-line",
-  //     title: "echarts折线图",
-  //   },
-  //   name: 'echarts折线图'
-  // },
-  // {
-  //   path: "/echarts-bar",
-  //   component: () => import("@/views/ent/echarts/echarts-bar"),
-  //   meta: {
-  //     id: "echarts-bar",
-  //     title: "echarts柱状图",
-  //   },
-  //   name: 'echarts柱状图'
-  // },
   {
     path: "/echarts",
     children: [
@@ -74,6 +56,104 @@ const constRoutes = [
         },
         name: "echarts柱状图",
       },
+      {
+        path: "/echarts/pie",
+        component: () => import("@/views/ent/echarts/echarts-pie"),
+        meta: {
+          id: "echarts-pie",
+          title: "echarts饼图",
+        },
+        name: "echarts饼图",
+      },
+      {
+        path: "/echarts/other",
+        component: () => import("@/views/ent/echarts/echarts-other"),
+        meta: {
+          id: "echarts-other",
+          title: "echarts其他",
+        },
+        name: "echarts其他",
+      },
+    ],
+  },
+  {
+    path: "/pages",
+    children: [
+      {
+        path: "/pages/animation",
+        component: () => import("@/views/ent/pages/animation"),
+        meta: {
+          id: "animation",
+          title: "动画",
+        },
+        name: "动画",
+      },
+      {
+        path: "/pages/webSocket",
+        component: () => import("@/views/ent/pages/webSocket"),
+        meta: {
+          id: "webSocket",
+          title: "webSocket",
+        },
+        name: "webSocket",
+      },
+      {
+        path: "/pages/pageView1",
+        component: () => import("@/views/ent/pages/pageView1"),
+        meta: {
+          id: "pageView1",
+          title: "圣杯布局",
+        },
+        name: "圣杯布局",
+      },
+      {
+        path: "/pages/pageView2",
+        component: () => import("@/views/ent/pages/pageView2"),
+        meta: {
+          id: "pageView2",
+          title: "双飞翼布局",
+        },
+        name: "双飞翼布局",
+      },
+    ],
+  },
+  {
+    path: "/demo",
+    component: () => import("@/views/ent/demo/index"),
+    hidden: true,
+    redirect: "/form",
+    meta: {
+      name: "demo",
+    },
+    children: [
+      {
+        path: "/demo/form",
+        component: () => import("@/views/ent/demo/form/index"),
+        meta: {
+          id: "form",
+          title: "表单",
+        },
+        name: "表单",
+      },
+      {
+        path: "/demo/qrCode",
+        component: () => import("@/views/ent/demo/qrCode/index"),
+        meta: {
+          id: "qrCode",
+          title: "二维码",
+        },
+        name: "二维码",
+      },
+      {
+        path: "/demo/lodash",
+        component: () => import("@/views/ent/demo/lodash/index"),
+        meta: {
+          id: "lodash",
+          title: "lodash",
+        },
+        name: "lodash",
+      },
+      
     ],
   },
 ];

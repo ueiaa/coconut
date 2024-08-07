@@ -2,10 +2,10 @@
   <div class="echarts">
     <div class="container">
       <div class="container-left">
-        <div class="base-bar" ref="baseBar"></div>
+        <div class="base-scatter" ref="baseScatter"></div>
       </div>
       <div class="container-right">
-        <div class="bar-align" ref="barAlign"></div>
+        <div class="scatter-bubble" ref="scatterBubble"></div>
       </div>
     </div>
     <div class="container">
@@ -38,15 +38,15 @@
 <script>
 import * as echarts from "echarts";
 import {
-  baseBarOption,
-  barAlignOption,
+  baseScatterOption,
+  scatterBubbleOption,
   barBgOption,
   barNegativeOption,
   barStackOption,
   barStackBorderOption,
   mixLineBarOption,
   multipleYAxisOption
-} from "./option-bar.js";
+} from "./option-other.js";
 export default {
   components: {},
   data() {
@@ -60,16 +60,16 @@ export default {
   },
   methods: {
     initCharts() {
-      let myBaseBar = echarts.init(this.$refs.baseBar);
-      let myBarAlign = echarts.init(this.$refs.barAlign);
+      let myBaseScatter = echarts.init(this.$refs.baseScatter);
+      let myScatterBubble = echarts.init(this.$refs.scatterBubble);
       let myBarBg = echarts.init(this.$refs.barBg);
       let myBarNegative = echarts.init(this.$refs.barNegative);
       let myBarStack = echarts.init(this.$refs.barStack);
       let myBarStackBorder = echarts.init(this.$refs.barStackBorder);
       let myMixLineBar = echarts.init(this.$refs.mixLineBar);
       let myMultipleYAxis = echarts.init(this.$refs.multipleYAxis);
-      myBaseBar.setOption(baseBarOption);
-      myBarAlign.setOption(barAlignOption);
+      myBaseScatter.setOption(baseScatterOption);
+      myScatterBubble.setOption(scatterBubbleOption);
       myBarBg.setOption(barBgOption);
       myBarNegative.setOption(barNegativeOption);
       myBarStack.setOption(barStackOption);
@@ -96,13 +96,13 @@ export default {
     padding: 20px;
     gap: 30px;
     .container-left {
-      background-color: #f0edf4;
+      background-color: #edf4ee;
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      .base-bar,
+      .base-scatter,
       .bar-bg,
       .bar-stack,
       .mix-line-bar {
@@ -114,12 +114,12 @@ export default {
       }
     }
     .container-right {
-      background-color: #f0edf4;
+      background-color: #edf4ee;
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      .bar-align,
+      .scatter-bubble,
       .bar-negative,
       .bar-stack-border,
       .multiple-y-axis {

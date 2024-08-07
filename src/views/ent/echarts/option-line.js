@@ -387,7 +387,6 @@ export let lineGradientOption = {
       showSymbol: false,
       data: valueList,
       xAxisIndex: 1,
-      yAxisIndex: 1,
     },
   ],
 };
