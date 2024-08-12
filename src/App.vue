@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="zhCn">
+  <el-config-provider :locale="locale"> 
     <router-view />
   </el-config-provider>
 </template>
@@ -10,7 +10,7 @@ import zhCn from "element-plus/lib/locale/lang/zh-cn"
 export default {
   name: "App",
   components: {
-    [ElConfigProvider.name]: ElConfigProvider
+    [ElConfigProvider.name]: ElConfigProvider  // 包裹组件，使得所有element-plus为中文模式
   },
   data() {
     return {

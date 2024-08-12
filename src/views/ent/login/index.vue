@@ -1,5 +1,5 @@
 <template>
-  <div :class="{elder: isElder}" class="login">
+  <div :class="{ elder: isElder }" class="login">
     <div class="login-wrapper">
       <div class="login-left">
         <img src="@/assets/login/active-cloud.svg" alt="" />
@@ -18,6 +18,7 @@
                 <el-input
                   v-model="loginForm.password"
                   placeholder="Password"
+                  show-password
                 ></el-input>
               </el-form-item>
               <el-form-item class="captcha">
@@ -29,9 +30,26 @@
             </el-form>
           </div>
           <div class="login-btn">
-            <el-button type="primary" v-log="{caption:'登录页', params: '用户点击登录按钮'}">Log in</el-button>
-            <el-button type="text" v-if="isElder" style="color:#658BAF" @click="changeTheme">切换普通模式</el-button>
-            <el-button type="text" v-else style="color:#658BAF" @click="changeTheme">切换长辈模式</el-button>
+            <el-button
+              type="primary"
+              @click="handleLogin"
+              v-log="{ caption: '登录页', params: '用户点击登录按钮' }"
+              >Log in</el-button
+            >
+            <el-button
+              type="text"
+              v-if="isElder"
+              style="color: #658baf"
+              @click="changeTheme"
+              >切换普通模式</el-button
+            >
+            <el-button
+              type="text"
+              v-else
+              style="color: #658baf"
+              @click="changeTheme"
+              >切换长辈模式</el-button
+            >
           </div>
           <div class="login-other"></div>
         </div>
@@ -50,25 +68,39 @@ export default {
         username: [{ required: true, message: "请输入用户名", trigger: blur }],
         password: [{ required: true, message: "请输入密码", trigger: blur }],
       },
-      isElder:false
+      isElder: false,
     };
   },
   created() {},
   methods: {
     changeTheme() {
-      if(!this.isElder){
+      if (!this.isElder) {
         this.isElder = true;
-        console.log('现在是长辈模式')
-        // let html = document.querySelector('html')
-        // html.setAttribute('class', 'elder')
-        sessionStorage.setItem('userType', 'elder')
+        console.log("现在是长辈模式");
+        sessionStorage.setItem("userType", "elder");
       } else {
         this.isElder = false;
-        console.log('现在是普通模式')
-        sessionStorage.setItem('userType', 'default')
+        console.log("现在是普通模式");
+        sessionStorage.setItem("userType", "default");
       }
-    }
-  }
+    },
+    handleLogin() {
+      if (
+        this.loginForm.username === "vv" &&
+        this.loginForm.password === "111111" &&
+        this.loginForm.captcha === "6666"
+      ) {
+        this.$router.push("/home");
+        localStorage.setItem("userToken", this.loginForm.username);
+        this.$store.commit('saveUserToken', this.loginForm.username)
+      } else {
+        this.$message({
+          type: "error",
+          message: "请检查用户名密码",
+        });
+      }
+    },
+  },
 };
 </script>
 
@@ -82,7 +114,7 @@ export default {
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     display: flex;
-    
+
     .login-left {
       width: 50%;
       height: 80%;
@@ -129,7 +161,6 @@ export default {
             --el-input-border-color: transparent;
             --el-input-hover-border-color: transparent;
             --el-input-focus-border-color: transparent;
-
           }
         }
         .login-btn {
@@ -143,15 +174,15 @@ export default {
   }
 }
 
-.elder{
-  img{
+.elder {
+  img {
     width: 700px !important;
     height: 800px !important;
   }
-  .el-input{
+  .el-input {
     font-size: 16px !important;
   }
-  :deep(.el-button>span){
+  :deep(.el-button > span) {
     font-size: 16px;
   }
 }

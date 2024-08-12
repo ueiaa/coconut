@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "@/router";
+import store from "@/store"
 
 // elementUI
 import ELementPlus from "element-plus";
@@ -15,7 +16,7 @@ import * as icons from "@element-plus/icons-vue";
 // 创建vue实例
 const app = createApp(App);
 
-app.use(ELementPlus).use(router).mount("#app");
+app.use(ELementPlus).use(router).use(store).mount("#app");
 // createApp(App).mount("#app");
 
 // 统一注册el-icon图标

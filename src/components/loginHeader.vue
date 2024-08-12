@@ -43,7 +43,8 @@
             <el-menu-item index="/contact">Contact</el-menu-item>
           </el-menu>
           <div v-if="isLogin" class="header-user">
-            <img src="../assets/user/user-img.png" alt="">
+            <div><img src="../assets/user/user-img.png" alt=""></div>
+            <div><el-button plain @click="handleToLogout">Logout</el-button></div>
           </div>
           <div v-else class="header-btn">
             <el-button plain @click="handleToLogin">SignUp</el-button>
@@ -71,16 +72,25 @@ export default {
       return {};
     },
   },
-  created() {},
+  created() {
+    if(localStorage.getItem('userToken') !== null) {
+      this.isLogin = true
+      console.log(this.$store.state.userToken)
+    }
+  },
   methods: {
     handleSelect(item) {
-      if (item != null && item != "") {
-        this.$router.push(item);
-      }
+      // if (item != null && item != "") {
+      //   this.$router.push(item);
+      // }
     },
     handleToLogin() {
       this.$router.push('/login')
     },
+    handleToLogout() {
+      this.$router.push('/login')
+      localStorage.removeItem('userToken')
+    }
   },
 };
 </script>
@@ -119,9 +129,11 @@ export default {
       }
 
       .header-user {
+        display: flex;
         img {
           width: 35px;
           height: 35px;
+          margin-right: 10px;
         }
       }
     }

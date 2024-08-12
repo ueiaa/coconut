@@ -73,14 +73,14 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="生日" prop="birthday">
-            <el-config-provider :locale="locale">
+            <!-- <el-config-provider :locale="locale"> -->
               <el-date-picker
                 v-model="ruleForm.birthday"
                 type="date"
                 placeholder="选择日期"
               >
               </el-date-picker>
-            </el-config-provider>
+            <!-- </el-config-provider> -->
           </el-form-item>
           <el-form-item label="日期（有format）" prop="dateFormat">
             <!-- format指定输入框的格式 -->
@@ -369,16 +369,18 @@
 </template>
 
 <script>
-import { ElConfigProvider } from 'element-plus'
-import zhCn from "element-plus/lib/locale/lang/zh-cn";
+import { nextTick } from 'vue';
+
+// import { ElConfigProvider } from 'element-plus'
+// import zhCn from "element-plus/lib/locale/lang/zh-cn";
 export default {
   name: "Form",
   components: {
-    [ ElConfigProvider.name ]: ElConfigProvider
+    // [ ElConfigProvider.name ]: ElConfigProvider
   },
   data() {
     return {
-      locale: zhCn,
+      // locale: zhCn,
       defaultTime: new Date(2000, 1, 1, 9, 0, 0),
       
       activeName: "third",
@@ -604,7 +606,25 @@ export default {
       dialogTableVisible: false,
       addressChecked: null,
       currentRow: {},
+
+      isSubmit: false,
     };
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(this.isSubmit)
+    console.log(to)
+    console.log(from)
+    if(!this.isSubmit) {
+      this.$confirm('您的信息还未提交, 是否离开?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          next()
+        }).catch(() => {
+          return false;          
+        });
+    }
   },
   /* watch: {
         //深度监听，数据有变化即存储
@@ -911,9 +931,11 @@ export default {
             _this.loading = false;
             console.log(_this.ruleForm);
             alert("已提交！");
+            _this.isSubmit = true;
           }, 3000);
         } else {
           console.log("error submit");
+          _this.isSubmit = false;
           return false;
         }
       });

@@ -141,6 +141,7 @@ const constRoutes = [
         meta: {
           id: "qrCode",
           title: "二维码",
+          requiresAuth: true,
         },
         name: "二维码",
       },
@@ -164,32 +165,50 @@ const router = createRouter({
   routes: constRoutes,
 });
 
+const isAuthenticated = () => {
+  return localStorage.getItem('userToken') !== null ? true : false;
+}
+
 //页面埋点
 let startTime = Date.now();
 let currentTime;
 router.beforeEach((to, from, next) => {
   console.log(to, from, next);
-  if (to) {
-    // 页面跳转后记录当前时间currentTime
-    currentTime = Date.now();
-    // 计算currentTime 和 startTime的差值可以得出用户在某个页面停留的时间
-    console.log(
-      "用户由",
-      from.name,
-      "页面 跳转到",
-      to.name,
-      "页面，在",
-      from.name,
-      "页面停留了",
-      parseInt((currentTime - startTime) / 1000),
-      "秒"
-    );
-    // 埋点数据上报
-    // ...
-    // 每次都要初始化一下startTime
-    startTime = Date.now();
+  // 页面跳转后记录当前时间currentTime
+  currentTime = Date.now();
+  // 计算currentTime 和 startTime的差值可以得出用户在某个页面停留的时间
+  console.log(
+    "用户由",
+    from.name,
+    "页面 跳转到",
+    to.name,
+    "页面，在",
+    from.name,
+    "页面停留了",
+    parseInt((currentTime - startTime) / 1000),
+    "秒"
+  );
+  // 埋点数据上报
+  // ...
+  // 每次都要初始化一下startTime
+  startTime = Date.now();
+
+  // 如果路由需要认证 或者写成to.meta.requiresAuth
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // 检查用户是否已登录
+    if(isAuthenticated()) {
+      // 已登录，允许访问
+      next();
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } 
+  } else {
+    next();
   }
-  next();
+  // next();
 });
 
 export default router;
